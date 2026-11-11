@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Persistent media cache verification</title>
+<link rel="stylesheet" href="../extension/settings.css"><main><h1>Persistent media cache verification</h1><p>Local synthetic media only. This uses the browser's real Cache Storage.</p>
+<button id="write">Write cache fixture</button><button id="read">Read cached fixture</button><button id="clear">Clear fixture cache</button><p id="result" role="status">Ready.</p>
+<script src="../patches/media-cache.js"></script><script>
+const cache=new LWLMediaCache(),result=document.getElementById('result');
+document.getElementById('write').onclick=async()=>{await cache.put('fixture/profile/image.jpg',new Blob(['LWL cache verification'],{type:'text/plain'}));result.textContent='Stored fixture in persistent media cache.';};
+document.getElementById('read').onclick=async()=>{const blob=await cache.get('fixture/profile/image.jpg');result.textContent=blob?'Cache hit after reload: '+await blob.text():'Cache miss.';};
+document.getElementById('clear').onclick=async()=>{await cache.clear();result.textContent='Fixture cache cleared.';};
+</script></main></html>

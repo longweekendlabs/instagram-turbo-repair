@@ -1,0 +1,9 @@
+/* Scope upstream alerts so their old white surface never overrides the LWL UI. */
+.alert-wrapper{bottom:140px!important;z-index:2147483646!important;font:14px/1.5 system-ui,sans-serif!important}
+.alert-wrapper>.alert{background:#101b2b!important;color:#e7eef6!important;border:1px solid #55d9cc66!important;box-shadow:0 4px 18px #0005!important;padding:16px 42px 16px 18px!important;border-radius:10px!important}
+.alert-wrapper>.alert.warn{border-color:#e6b76a99!important}
+.alert-wrapper>.alert.error{border-color:#ee8e8e99!important}
+.alert-wrapper .alert-message{opacity:1!important;color:#e7eef6!important;overflow-wrap:anywhere}
+.alert-wrapper .alert-title{color:#55d9cc!important}
+.alert-wrapper .close{content:none!important;transform:none!important;top:10px!important;right:10px!important;box-sizing:border-box!important;width:24px!important;height:24px!important;border:1px solid #7d92aa!important;border-radius:5px!important;background:#213348 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e7eef6' stroke-width='1.8'%3E%3Cpath d='m7 7 10 10M17 7 7 17'/%3E%3C/svg%3E") center/20px no-repeat!important}
+.alert-wrapper .close:focus-visible{outline:2px solid #55d9cc;outline-offset:2px}

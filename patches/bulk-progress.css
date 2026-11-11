@@ -1,0 +1,9 @@
+#lwl-bulk-progress{position:fixed;right:20px;bottom:20px;z-index:2147483647;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;max-width:min(470px,calc(100vw - 40px));padding:15px 18px;border:1px solid #55d9cc66;border-radius:10px;background:#101b2bf5;color:#e7eef6;box-shadow:0 4px 18px #0005;font:14px/1.5 system-ui,sans-serif}
+#lwl-bulk-progress .lwl-bulk-label{grid-column:1;overflow-wrap:anywhere}
+#lwl-bulk-progress button{grid-column:2;grid-row:1/3;align-self:center;border:1px solid #7d92aa;border-radius:5px;background:#213348;color:#fff;padding:6px 12px;cursor:pointer}
+#lwl-bulk-progress button:focus-visible{outline:2px solid #55d9cc;outline-offset:2px}
+#lwl-bulk-progress .lwl-bulk-bar{grid-column:1;height:4px;overflow:hidden;background:#ffffff26;border-radius:3px}
+#lwl-bulk-progress .lwl-bulk-bar>div{height:100%;background:#55d9cc}
+#lwl-bulk-progress .indeterminate>div{width:30%;animation:lwl-bulk-scan 1.4s ease-in-out infinite alternate}
+@keyframes lwl-bulk-scan{from{transform:translateX(0)}to{transform:translateX(230%)}}
+@media(prefers-reduced-motion:reduce){#lwl-bulk-progress .indeterminate>div{animation:none;width:100%;opacity:.4}}

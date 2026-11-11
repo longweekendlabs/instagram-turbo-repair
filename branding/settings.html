@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LWL Instagram Downloader</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <main>
+    <header class="app-header">
+      <img src="icons/lwl-mark.svg" width="56" height="56" alt="">
+      <div><h1>LWL Instagram Downloader</h1><p><span id="version"></span> · Save Instagram profiles into organized folders.</p></div>
+    </header>
+
+    <section aria-labelledby="routing-title">
+      <div class="section-heading"><h2 id="routing-title">Download folders</h2><span class="label">Automatic by default</span></div>
+      <p>Download All automatically creates your date folder and a subfolder named after the open profile's Instagram handle. Descriptive filenames include the media owner, timestamp and media ID. No Organizer rule setup is needed in Automatic mode.</p>
+      <label for="folder-mode">Folder handling</label>
+      <select id="folder-mode"><option value="builtin" selected>Automatic date and profile folders (default)</option><option value="organizer">Use my RegExp Organizer rules (optional setup)</option></select>
+      <p id="mode-status" role="status" class="hint"></p>
+      <p class="hint">Files remain separate photos and videos inside the handle folder. No ZIP. The first new save is checked, then up to two files transfer together.</p>
+      <label class="quiet-setting"><input id="quiet-downloads" type="checkbox" checked> Quiet browser download UI during batches (default)</label>
+      <p class="hint">The addon shows one progress panel and restores the browser download UI when the batch finishes, stops, or its tab closes. Individual files still appear in download history.</p>
+      <p class="hint">While finding posts, the progress banner shows counts. During saving it shows completed files and a percentage. Use Stop to cancel the queue and its current file; completed files stay on disk.</p>
+      <p class="hint">Download All checks each saved file's actual name and profile folder. If another extension changes the destination, it stops after that file.</p>
+      <div class="destination" aria-label="Example download destination"><span>Default download folder</span><code id="preview"></code></div>
+      <p class="hint">The date comes from the start of each file download. A batch crossing midnight can use two date folders.</p>
+      <p class="hint">Stories have two download buttons just below the top-right corner of the visible story: current story and all stories. Ctrl+Shift+D saves the current story. Individual posts and stories save directly in the date folder. Only a profile’s Download All creates a handle subfolder.</p>
+      <p class="hint">After updating the addon, reload the Instagram page itself before opening a highlight. The addon first uses media already loaded by that viewer; unavailable metadata lookups are a fallback.</p>
+    </section>
+
+    <section aria-labelledby="cache-title">
+      <h2 id="cache-title">Download cache</h2>
+      <p>Media caching is enabled by default, up to 512 MB for 7 days. Retries reuse cached media. Files already saved in today's destination folder are skipped while the browser still confirms they exist.</p>
+      <button id="clear-cache" type="button">Clear download cache</button><p id="cache-status" role="status" class="hint"></p>
+      <p class="hint">Clearing this cache also resets saved-file tracking. It does not delete your downloaded photos or videos.</p>
+    </section>
+
+    <section id="organizer-rule" aria-labelledby="rule-title" hidden>
+      <h2 id="rule-title">Optional Organizer mode setup</h2>
+      <p>Add and <strong>enable</strong> this rule <strong>above your existing Instagram rule</strong> in RegExp Download Organizer. Leave its other matchers empty and keep <strong>Uniquify</strong> for name conflicts. The first capture creates the open profile's Instagram handle subfolder; the second sets the media filename.</p>
+      <label for="matcher">Download URL</label>
+      <div class="copy-field"><input id="matcher" readonly><button type="button" data-copy="matcher">Copy</button></div>
+      <label for="destination">Destination path</label>
+      <div class="copy-field"><textarea id="destination" rows="2" readonly></textarea><button type="button" data-copy="destination">Copy</button></div>
+      <p class="hint">This rule keeps the profile name and filename together. Your existing rule can continue to organize downloads from other Instagram tools.</p>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p><a href="https://chromewebstore.google.com/detail/regexp-download-organizer/oamembonjndgangicfphlckkdmagpjlg" target="_blank" rel="noopener">RegExp Download Organizer</a></p>
+    </section>
+
+    <section id="failure-section" aria-labelledby="failure-title" hidden>
+      <h2 id="failure-title">Last download failure</h2>
+      <p>These details contain query IDs, field names, data types or download-routing check results. They exclude account names, media URLs, file paths, cookies and tokens. Copy them when reporting a failed Download All attempt.</p>
+      <label for="failure-details">Failure details</label>
+      <div class="copy-field"><textarea id="failure-details" rows="8" readonly></textarea><button type="button" data-copy="failure-details">Copy failure details</button></div>
+    </section>
+
+    <section aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
+      <p>Save photos, videos and carousel posts into a folder for each profile. Files go to your computer; this local build sends no analytics. Automatic mode uses your existing date-path layout without changing other extensions' rules.</p>
+      <p>Private build for personal use. Not for distribution.</p>
+      <p>Based on Turbo Downloader for Instagram by igdownloader2023. Profile-download repairs, browser-download integration and this settings page are maintained by Long Weekend Labs. Original code and bundled third-party notices remain credited to their authors.</p>
+      <nav aria-label="Help"><a href="https://longweekendlabs.app" target="_blank" rel="noopener">Long Weekend Labs</a><a href="legacy-options.html">Original post button settings</a></nav>
+      <p class="hint">The folder selector in the original settings belongs to Turbo's old batch writer. It does not control Download All in this build. Keep the profile tab open until its downloads finish.</p>
+    </section>
+    <footer><span class="lwl-badge">LWL</span><span>Made with <span class="heart">♥</span> by Long Weekend Labs</span><span class="copyright">© 2026 Long Weekend Labs</span></footer>
+  </main>
+  <script src="settings.js"></script>
+</body>
+</html>

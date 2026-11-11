@@ -1,0 +1,15 @@
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+PROJECT.md
+ROADMAP.md
+extension/
+__pycache__/
+/Prod/
+
+# Machine-local build inputs, credentials and private staging.
+.local/
+.env
+.env.*
+*.crx
+*.pem

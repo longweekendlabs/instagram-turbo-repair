@@ -1,0 +1,8 @@
+#lwl-story-downloads {position:fixed; z-index:2147483646; display:flex; gap:6px; align-items:center; padding:5px; border:1px solid #ffffff55; border-radius:9px; background:#101b2bed; color:#fff; box-shadow:0 2px 8px #0005; font:13px/1.4 system-ui,sans-serif; pointer-events:auto}
+#lwl-story-downloads button {display:grid; place-items:center; width:34px; height:34px; padding:6px; border:0; border-radius:5px; background:transparent; color:#fff; cursor:pointer}
+#lwl-story-downloads button:hover {background:#ffffff26; color:#55d9cc}
+#lwl-story-downloads button:focus-visible {outline:2px solid #55d9cc; outline-offset:2px}
+#lwl-story-downloads button:disabled {opacity:.5; cursor:wait}
+#lwl-story-downloads svg {width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; pointer-events:none}
+#lwl-story-downloads .lwl-story-status {position:absolute; top:100%; right:0; width:max-content; max-width:min(290px,calc(100vw - 24px)); margin-top:6px; padding:8px 10px; border-radius:6px; background:#101b2bf5; box-shadow:0 2px 8px #0005; color:#fff; white-space:normal}
+#lwl-story-downloads .lwl-story-status:empty {display:none}

@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Loaded video recovery</title>
+<style>body{min-width:900px;background:#101b2b;color:#e7eef6;font:16px/1.5 system-ui;padding:24px}video{width:280px;height:280px;background:#000;margin:12px}button{padding:12px}p{max-width:800px}</style>
+<h1>Loaded video recovery</h1><p>Synthetic video and tone. Original playback uses MediaSource with no poster or metadata API. Separate and multiplexed audio/video paths are available.</p>
+<button id="load">Load synthetic stream</button><button id="muxed">Load multiplexed stream</button><button id="capture" disabled>Recover and replay</button>
+<p id="result" role="status">Ready.</p><video id="original" muted controls></video><video id="recovered" muted controls></video>
+<script src="loaded-video.js"></script><script>
+const fixtureBase=location.href;
+history.replaceState(null,"","/stories/highlights/12/");
+const original=document.getElementById('original'),recovered=document.getElementById('recovered'),result=document.getElementById('result');
+document.getElementById('load').onclick=async()=>{
+ try{const source=new MediaSource();original.src=URL.createObjectURL(source);await new Promise(resolve=>source.addEventListener('sourceopen',resolve,{once:true}));
+  for(const [file,type] of [['video.mp4','video/mp4; codecs="avc1.64000a"'],['audio.mp4','audio/mp4; codecs="mp4a.40.2"']]){
+   const buffer=source.addSourceBuffer(type),data=await (await fetch(new URL(file,fixtureBase))).arrayBuffer();
+   await new Promise((resolve,reject)=>{buffer.addEventListener('updateend',resolve,{once:true});buffer.addEventListener('error',reject,{once:true});buffer.appendBuffer(data);});
+  }
+  source.endOfStream();await original.play();document.getElementById('capture').disabled=false;result.textContent='Original blob stream ready: two source buffers, no poster.';
+ }catch(error){result.textContent=error.message;}
+};
+document.getElementById('muxed').onclick=async()=>{
+ try{const source=new MediaSource();original.src=URL.createObjectURL(source);await new Promise(resolve=>source.addEventListener('sourceopen',resolve,{once:true}));
+ const buffer=source.addSourceBuffer('video/mp4; codecs="avc1.64000a, mp4a.40.2"'),data=await (await fetch(new URL('combined.mp4',fixtureBase))).arrayBuffer();
+ await new Promise((resolve,reject)=>{buffer.addEventListener('updateend',resolve,{once:true});buffer.addEventListener('error',reject,{once:true});buffer.appendBuffer(data);});source.endOfStream();await original.play();document.getElementById('capture').disabled=false;result.textContent='Multiplexed blob stream ready: audio and video, no poster.';
+ }catch(error){result.textContent=error.message;}
+};
+document.getElementById('capture').onclick=async()=>{
+ try{const blob=await __lwlLoadedVideo.capture(original.currentSrc,original);recovered.src=URL.createObjectURL(blob);await recovered.play();
+ result.textContent='Recovered MP4 is playing: '+recovered.videoWidth+'×'+recovered.videoHeight+', '+recovered.duration.toFixed(2)+' seconds; '+blob.size+' bytes.';
+ }catch(error){result.textContent=error.message;}
+};
+</script></html>

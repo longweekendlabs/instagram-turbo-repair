@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Bulk download verification fixture</title>
+<link rel="stylesheet" href="../patches/bulk-progress.css">
+<link rel="stylesheet" href="../extension/css/extension.css">
+<link rel="stylesheet" href="../patches/lwl-notifications.css">
+<style>body{background:#0c1421;color:#e7eef6;font:16px/1.6 system-ui;padding:32px;max-width:850px}button{padding:10px;margin:8px 8px 8px 0}#result{color:#55d9cc}</style>
+<h1>Bulk download verification fixture</h1><p>Synthetic profile and file counts. No Instagram requests.</p>
+<button id="scan">Start scan</button><button id="page">Find next page</button><button id="files">Start files</button><button id="saved">Save next file</button><button id="native">Test native filename</button>
+<p id="result" role="status">Ready.</p>
+<div class="alert-wrapper"><div class="alert warn fade-in"><button class="close" aria-label="Dismiss notification" onclick="this.parentElement.remove()"></button><div class="alert-title">LWL Instagram Downloader</div><div class="alert-message">Notification styling check. Automatic date and profile folders are enabled.</div></div></div>
+<script src="../patches/bulk-progress.js"></script>
+<script>
+let progress,posts=0,completed=0,stopped=false;
+document.getElementById('scan').onclick=()=>{posts=0;completed=0;stopped=false;progress=new __lwlBulkProgress('example',()=>{stopped=true;document.getElementById('result').textContent='Stop received. No next file.';progress.finish('stopped');});};
+document.getElementById('page').onclick=()=>{if(!stopped)progress.update({phase:'scan',posts:posts+=12,files:posts*2});};
+document.getElementById('files').onclick=()=>{if(!stopped)progress.update({phase:'download',completed:0,total:4});};
+document.getElementById('saved').onclick=()=>{if(!stopped){progress.update({phase:'download',completed:++completed,total:4});if(completed===4)progress.finish('complete');}};
+document.getElementById('native').onclick=()=>{const url=URL.createObjectURL(new Blob(['LWL filename fixture'],{type:'text/plain'}));const anchor=document.createElement('a');anchor.href=url+'#lwl-instagram/example/example_1000_123.txt';anchor.download='example_1000_123.txt';anchor.style.display='none';document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);document.getElementById('result').textContent='Native download requested: example_1000_123.txt';};
+</script></html>
